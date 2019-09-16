@@ -3,9 +3,21 @@
     <h1>{{ msg }}</h1>
     <div class="todos-container container">
       <div class="row">
-        <div :class="width" v-for="todo in allTodos">
+        <div class="col-md-12">
+          <select @change="limitedFn($event)">
+            <option value="10">10</option>
+            <option value="20" selected>20</option>
+            <option value="30">30</option>
+            <option value="40">40</option>
+            <option value="50">50</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4" v-for="todo in allTodos">
           <div :key="todo.id" :class="[singleTodo, {completed: todo.completed}]">
             <h2>{{ todo.title }}<h2>
+            <button @click="Delete(todo.id)">X</button>
           </div>
         </div>
       </div>
@@ -24,7 +36,7 @@ import { mapGetters, mapActions } from 'vuex';
     },
     name: 'home',
     methods: {
-      ...mapActions(["fetchTodos"])
+      ...mapActions(["fetchTodos", "Delete", "limitedFn"])
     },
     computed: mapGetters(["allTodos"]),
     created(){
