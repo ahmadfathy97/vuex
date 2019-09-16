@@ -13,11 +13,14 @@
           </select>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-4" v-for="todo in allTodos">
-          <div :key="todo.id" :class="[singleTodo, {completed: todo.completed}]">
-            <h2>{{ todo.title }}<h2>
+      <div class="row" >
+        <div class="col-md-4" @dblclick="Update(todo)" v-for="todo in allTodos">
+          <div :key="todo.id"
+                class="bg-light"
+               :class="{completed: todo.completed}"
+               >
             <button @click="Delete(todo.id)">X</button>
+            <h2>{{ todo.title }}<h2>
           </div>
         </div>
       </div>
@@ -36,7 +39,7 @@ import { mapGetters, mapActions } from 'vuex';
     },
     name: 'home',
     methods: {
-      ...mapActions(["fetchTodos", "Delete", "limitedFn"])
+      ...mapActions(["fetchTodos", "Delete", "limitedFn", "Update"])
     },
     computed: mapGetters(["allTodos"]),
     created(){
@@ -57,18 +60,15 @@ body{
   justify-content: center;
   flex-wrap: wrap;
 } */
-.singleTodo{
-  height: 200px;
-  padding: 5px;
+.col-md-4{
+  padding: 8px !important
+}
+.col-md-4 div{
+  height: 120px;
   overflow: auto;
-  background: #6f6f6f;
-  color: #fff;
-  margin: 2px;
-  text-align: center;
-  word-wrap: break-word;
 }
 .completed{
-  background: #5d8e56;
+  background: #5d8e56 !important;
   color: #fff;
   position: relative;
 }

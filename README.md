@@ -25,5 +25,5 @@ npm run test
 npm run lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Note
+__ you can't update the todo that you created because I'm using fake API __

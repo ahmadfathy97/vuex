@@ -27,12 +27,24 @@ const actions = {
     let limitNum = parseInt(e.target.options[e.target.options.selectedIndex].innerText);
     let response = await axios.get(`https://jsonplaceholder.typicode.com/todos/?_limit=${limitNum}`);
     commit('setTodos', response.data);
+  },
+  async Update({commit}, updatedTodo){
+    let response = await axios.put(`https://jsonplaceholder.typicode.com/todos/${updatedTodo.id}`,
+      {id: updatedTodo.id, title: updatedTodo.title, completed: !updatedTodo.completed}
+    );
+    commit('updateTodo', response.data);
   }
 };
 const mutations = {
   setTodos: (state, todos) => (state.todos = todos),
   addTodo: (state, todo) => state.todos.unshift(todo),
-  removeTodo: (state, id) => state.todos = state.todos.filter(todo => todo.id !== id)
+  removeTodo: (state, id) => state.todos = state.todos.filter(todo => todo.id !== id),
+  updateTodo: (state, newTodo)=> {
+    let index = state.todos.findIndex(todo => todo.id === newTodo.id);
+    if (index > -1) {
+      state.todos.splice(index, 1, newTodo);
+    }
+  }
 };
 export default {
   state,
